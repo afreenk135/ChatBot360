@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Web AI</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #3498db;
+            text-align: center;
+            margin: 20px;
+            color: #fff;
+        }
+
+        h1 {
+            color: #fff;
+            animation: rotate 1s ease-in-out; /* Rotation animation for the heading */
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        label,
+        input,
+        button,
+        #responseText {
+            animation: fadeIn 1s ease-in-out; /* Opening animation for various elements */
+        }
+
+        label {
+            display: block;
+            margin: 20px 0 10px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #2980b9;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1a5276;
+        }
+
+        #responseText {
+            width: 80%;
+            height: 150px;
+            margin-top: 10px;
+            padding: 10px;
+            overflow-y: scroll;
+            background-color: #fff;
+            color: #333;
+            border-radius: 5px;
+            margin: 0 auto;
+        }
+
+        p {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>CHAT BOT 360</h1>
+
+    <label for="userInput">Ask me anything:</label>
+    <input type="text" id="userInput" size="40">
+
+    <button onclick="getResponse()">Get Response</button>
+
+    <div id="responseText"></div>
+
+    <!-- Space to enter a URL -->
+    <label for="urlInput">Enter URL:</label>
+    <input type="text" id="urlInput" placeholder="https://example.com">
+
+    <script>
+        function getResponse() {
+            var userInput = document.getElementById("userInput").value;
+            var responseText = document.getElementById("responseText");
+            var urlInput = document.getElementById("urlInput").value; // Get the entered URL
+
+            // Arrays for jokes and facts
+            var jokes = [
+                "Why don't scientists trust atoms? Because they make up everything!",
+                "Did you hear about the mathematician who's afraid of negative numbers? He'll stop at nothing to avoid them!",
+                "I told my wife she was drawing her eyebrows too high. She looked surprised.",
+            ];
+
+            var facts = [
+                "Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible.",
+                "Octopuses have three hearts. Two pump blood to the gills, and one pumps it to the rest of the body.",
+                "The Eiffel Tower can be 15 cm taller during the summer due to thermal expansion of the iron.",
+            ];
+
+            // Responses for specific queries
+            if (userInput.trim().toLowerCase() === "hi") {
+                responseText.innerHTML += "<p><strong>You:</strong> " + userInput + "<br><strong>AI:</strong> Hello there!</p>";
+            } else if (userInput.trim().toLowerCase() === "name") {
+                responseText.innerHTML += "<p><strong>You:</strong> " + userInput + "<br><strong>AI:</strong> I'm ChatBot360!</p>";
+            } else if (userInput.trim().toLowerCase() === "what can you do for me") {
+                responseText.innerHTML += "<p><strong>You:</strong> " + userInput + "<br><strong>AI:</strong> I can answer your questions, tell jokes, and more! Feel free to ask.</p>";
+            } else if (userInput.trim().toLowerCase() === "google") {
+                // Open Google
+                window.open("https://www.google.com", "_blank");
+                responseText.innerHTML += "<p><strong>You:</strong> " + userInput + "<br><strong>AI:</strong> Opening Google...</p>";
+            } else if (userInput.trim().toLowerCase().startsWith("open link")) {
+                // Extract the link from the user input
+                var link = userInput.trim().substring(10);
+
+                if (isValidUrl(link)) {
+                    // Open the specified link
+                    window.open(link, "_blank");
+                    responseText.innerHTML += "<p><strong>You:</strong> " + userInput + "<br><strong>AI:</strong> Opening link...</p>";
+                } else {
+                    responseText.innerHTML += "<p><strong>You:</strong> " + userInput + "<br><strong>AI:</strong> Invalid link format.</p>";
+                }
+            } else if (userInput.trim().toLowerCase() === "joke") {
+                var randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+                responseText.innerHTML += "<p><strong>You:</strong> " + userInput + "<br><strong>AI:</strong> " + randomJoke + "</p>";
+            } else if (userInput.trim().toLowerCase() === "fact") {
+                var randomFact = facts[Math.floor(Math.random() * facts.length)];
+                responseText.innerHTML += "<p><strong>You:</strong> " + userInput + "<br><strong>AI:</strong> " + randomFact + "</p>";
+            } else {
+                // Default response
+                responseText.innerHTML += "<p><strong>You:</strong> " + userInput + "<br><strong>AI:</strong> I'm sorry, I don't have the answer to that right now.</p>";
+            }
+
+            // Check if a URL is provided and open it
+            if (isValidUrl(urlInput)) {
+                window.open(urlInput, "_blank");
+            }
+        }
+
+        // Function to check if a string is a valid URL
+        function isValidUrl(url) {
+            try {
+                new URL(url);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>
+
+
+
